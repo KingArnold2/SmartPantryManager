@@ -1,0 +1,26 @@
+package com.richfield.smartpantry;
+
+/**
+ * Model class for one row in the pantry table (an ingredient the user owns).
+ */
+public class Ingredient {
+    private long id;
+    private String name;
+    private double quantity;
+    private String unit;
+    private String expiryDate; // ISO format yyyy-MM-dd, or null/empty if not set
+
+    public Ingredient(long id, String name, double quantity, String unit, String expiryDate) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.unit = unit;
+        this.expiryDate = expiryDate;
+    }
+
+    public long getId() { return id; }
+    public String getName() { return name; }
+    public double getQuantity() { return quantity; }
+    public String getUnit() { return unit; }
+    public String getExpiryDate() { return expiryDate; }
+}
