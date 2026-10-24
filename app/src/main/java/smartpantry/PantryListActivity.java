@@ -3,6 +3,7 @@ package com.richfield.smartpantry;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class PantryListActivity extends BaseActivity implements PantryAdapter.Li
     private PantryAdapter adapter;
     private TextView tvEmpty;
     private TextView tvBanner;
+    private Button btnSuggest;
     private RecyclerView rvPantry;
 
     @Override
@@ -38,6 +40,11 @@ public class PantryListActivity extends BaseActivity implements PantryAdapter.Li
         tvEmpty = findViewById(R.id.tv_empty);
         tvBanner = findViewById(R.id.tv_banner);
         FloatingActionButton fab = findViewById(R.id.fab_add);
+        btnSuggest = findViewById(R.id.btn_suggest);
+
+        // Intent -> open the Suggested Recipes screen
+        btnSuggest.setOnClickListener(v ->
+                startActivity(new Intent(this, SuggestedRecipesActivity.class)));
 
         adapter = new PantryAdapter(this);
         rvPantry.setLayoutManager(new LinearLayoutManager(this));
@@ -61,6 +68,10 @@ public class PantryListActivity extends BaseActivity implements PantryAdapter.Li
         List<Ingredient> items = db.getAllPantryItems();
         boolean alerts = Prefs.isExpiryAlertsEnabled(this);
         adapter.setItems(items, alerts);
+
+        // Show how many recipes can be cooked with the current pantry (strict-matching rule)
+        int canCook = RecipeMatcher.getSuggestedRecipes(items, db.getAllRecipes()).size();
+        btnSuggest.setText("What can I cook? (" + canCook + ")");
 
         tvEmpty.setVisibility(items.isEmpty() ? View.VISIBLE : View.GONE);
         rvPantry.setVisibility(items.isEmpty() ? View.GONE : View.VISIBLE);

@@ -24,12 +24,20 @@
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_suggest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_banner"
+        android:layout_margin="8dp"
+        android:text="What can I cook?" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_pantry"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_nav"
-        android:layout_below="@id/tv_banner"
+        android:layout_below="@id/btn_suggest"
         android:clipToPadding="false"
         android:padding="8dp" />
 
